@@ -176,5 +176,21 @@ def register_demo(request):
         messages.info(request, "This is a demo version. Use the provided credentials.")
         return redirect("login")
 
-    # Mostrar template de registro demo
     return render(request, "biblioteca/register.html")
+
+
+def demo_login(request):
+    """Demo login - authenticate admin user directly"""
+    from django.contrib.auth import authenticate
+    from django.contrib.auth import get_user_model
+
+    User = get_user_model()
+
+    try:
+        admin_user = User.objects.get(username="admin")
+        auth_login(request, admin_user)
+        messages.success(request, "Welcome to the demo!")
+    except User.DoesNotExist:
+        messages.error(request, "Admin user not found. Run startup.py first.")
+
+    return redirect("/")

@@ -20,6 +20,14 @@
             </div>
 
             <div class="px-6 py-6">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="mb-4 p-3 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300{% else %}bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
                 <form class="space-y-4" method="POST">
                     {% csrf_token %}
                     
@@ -62,18 +70,6 @@
                     </div>
                     {% endfor %}
 
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <input id="remember" name="remember" type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
-                            <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                                Remember session
-                            </label>
-                        </div>
-                        <a href="#" class="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300">
-                            Forgot password?
-                        </a>
-                    </div>
-
                     <button type="submit" 
                             class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 shadow-sm hover:shadow flex items-center justify-center space-x-2 group">
                         <i class="fas fa-sign-in-alt group-hover:scale-110 transition-transform"></i>
@@ -81,36 +77,20 @@
                     </button>
                 </form>
 
-                <div class="mt-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-700">
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-key text-amber-500"></i>
-                        <div class="text-sm">
-                            <p class="font-medium text-amber-800 dark:text-amber-200">Demo Account</p>
-                            <p class="text-amber-700 dark:text-amber-300 mt-1">
-                                <span class="font-mono bg-amber-100 dark:bg-amber-800 px-2 py-1 rounded">admin</span>
-                                <span class="mx-2">/</span>
-                                <span class="font-mono bg-amber-100 dark:bg-amber-800 px-2 py-1 rounded">admin123</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="relative my-6">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                        <span class="px-3 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">New here?</span>
+                        <span class="px-3 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">or</span>
                     </div>
                 </div>
 
-                <div class="text-center">
-                    <a href="{% url 'register' %}" 
-                       class="inline-flex items-center space-x-2 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors group">
-                        <i class="fas fa-user-plus group-hover:scale-110 transition-transform"></i>
-                        <span>Create a new account</span>
-                    </a>
-                </div>
+                <a href="{% url 'demo_login' %}" 
+                   class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow flex items-center justify-center space-x-2 group">
+                    <i class="fas fa-rocket group-hover:scale-110 transition-transform"></i>
+                    <span>Demo Login</span>
+                </a>
             </div>
         </div>
     </div>
