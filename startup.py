@@ -68,11 +68,10 @@ def create_admin_user():
 
 
 def load_sample_books():
-    """Load sample books if database is empty."""
-    if not Libro.objects.exists():
-        print("[STARTUP] Loading sample books...")
+    """Load sample books - always ensures they exist."""
+    print("[STARTUP] Loading sample books...")
 
-        libros_ejemplo = [
+    libros_ejemplo = [
             {
                 "titulo": "Cien Años de Soledad",
                 "ISBN": "978-0060883287",
@@ -164,18 +163,22 @@ def load_sample_books():
                 )
                 categorias.append(cat)
 
-            Libro.objects.create(
-                titulo=data["titulo"],
+            libro, created = Libro.objects.get_or_create(
                 ISBN=data["ISBN"],
-                descripcion=data["descripcion"],
-                estado="Disponible",
-                stock=1,
-                portada_url=data.get("portada_url", ""),
+                defaults={
+                    "titulo": data["titulo"],
+                    "descripcion": data["descripcion"],
+                    "estado": "Disponible",
+                    "stock": 1,
+                    "portada_url": data.get("portada_url", ""),
+                },
             )
+            libro.autores.set(autores)
+            libro.categorias.set(categorias)
 
-        print(f"[STARTUP] {len(libros_ejemplo)} sample books loaded")
+        print(f"[STARTUP] {len(libros_ejemplo)} sample books ready")
     else:
-        print("[STARTUP] Database already has books")
+        print("[STARTUP] Sample books already exist")
 
 
 if __name__ == "__main__":
