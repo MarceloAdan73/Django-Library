@@ -1,34 +1,64 @@
-# Entorno virtual
-biblioteca_env/
+# Environment variables (keep your secrets safe)
+.env
+.env.local
+.env.production
 
-# Base de datos  
-db.sqlite3
+# Admin credentials (auto-generated, never commit!)
+.admin_credentials
 
-# Archivos de Python
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
 
-# Archivos de IDE
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*.swn
 
-# Archivos temporales
-*.log
-*.tmp
-*.temp
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Archivos de medios (subidos por usuarios)
-media/
-portadas/
+# Build
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Logs
+logs/
 
 # Backups
 *.backup
 *.bak
-
-# Archivos de sistema
-.DS_Store
-Thumbs.db
+backup/

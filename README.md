@@ -10,7 +10,7 @@
 👉 [https://biblioteca-django-5dbk.onrender.com](https://biblioteca-django-5dbk.onrender.com)
 
 > ⚠️ **Admin Access:**
-Create superuser with `python manage.py createsuperuser`
+> Run `python startup.py` - credentials auto-generated and saved to `.admin_credentials`
 
 - ![Vista de la Biblioteca Digital](biblioteca-django.png)
 
