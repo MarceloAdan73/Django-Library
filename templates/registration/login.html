@@ -1,27 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Iniciar Sesión - Biblioteca Digital{% endblock %}
+{% block title %}Login - Digital Library{% endblock %}
 
 {% block content %}
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-green-50 dark:from-gray-900 dark:to-slate-800 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-6">
-        <!-- Tarjeta principal -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
-            <!-- Header -->
             <div class="bg-green-600 px-6 py-5">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-sign-in-alt text-white text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-white">Iniciar Sesión</h1>
-                        <p class="text-green-100 text-sm">Bienvenido de vuelta</p>
+                        <h1 class="text-xl font-bold text-white">Login</h1>
+                        <p class="text-green-100 text-sm">Welcome back</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Formulario -->
             <div class="px-6 py-6">
                 <form class="space-y-4" method="POST">
                     {% csrf_token %}
@@ -65,32 +62,30 @@
                     </div>
                     {% endfor %}
 
-                    <!-- Recordar usuario -->
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <input id="remember" name="remember" type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
                             <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-                                Recordar sesión
+                                Remember session
                             </label>
                         </div>
                         <a href="#" class="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300">
-                            ¿Olvidaste tu contraseña?
+                            Forgot password?
                         </a>
                     </div>
 
                     <button type="submit" 
                             class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 shadow-sm hover:shadow flex items-center justify-center space-x-2 group">
                         <i class="fas fa-sign-in-alt group-hover:scale-110 transition-transform"></i>
-                        <span>Iniciar Sesión</span>
+                        <span>Login</span>
                     </button>
                 </form>
 
-                <!-- Credenciales demo -->
                 <div class="mt-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-700">
                     <div class="flex items-center space-x-3">
                         <i class="fas fa-key text-amber-500"></i>
                         <div class="text-sm">
-                            <p class="font-medium text-amber-800 dark:text-amber-200">Cuenta de demostración</p>
+                            <p class="font-medium text-amber-800 dark:text-amber-200">Demo Account</p>
                             <p class="text-amber-700 dark:text-amber-300 mt-1">
                                 <span class="font-mono bg-amber-100 dark:bg-amber-800 px-2 py-1 rounded">admin</span>
                                 <span class="mx-2">/</span>
@@ -100,22 +95,20 @@
                     </div>
                 </div>
 
-                <!-- Separador -->
                 <div class="relative my-6">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                        <span class="px-3 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">¿Eres nuevo?</span>
+                        <span class="px-3 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">New here?</span>
                     </div>
                 </div>
 
-                <!-- Enlace de registro -->
                 <div class="text-center">
                     <a href="{% url 'register' %}" 
                        class="inline-flex items-center space-x-2 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors group">
                         <i class="fas fa-user-plus group-hover:scale-110 transition-transform"></i>
-                        <span>Crear una cuenta nueva</span>
+                        <span>Create a new account</span>
                     </a>
                 </div>
             </div>

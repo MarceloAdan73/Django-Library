@@ -1,37 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Importar Libros - Biblioteca Digital{% endblock %}
+{% block title %}Import Books - Digital Library{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 py-8 px-4">
     <div class="max-w-7xl mx-auto">
-        <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4 font-display">
-                <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Importar Libros</span>
+                <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Import Books</span>
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-sans">
-                Busca y importa libros automáticamente desde Google Books API
+                Search and import books automatically from Google Books API
             </p>
         </div>
 
-        <!-- Search Form -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
             <form method="post" class="space-y-6">
-                {% csrf_token %}  <!-- CSRF TOKEN AGREGADO -->
+                {% csrf_token %}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2">
                         <label for="query" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 font-sans">
                             <i class="fas fa-search mr-2 text-blue-500"></i>
-                            Buscar Libros
+                            Search Books
                         </label>
                         <input 
                             type="text" 
                             id="query" 
                             name="q" 
                             value="{{ query_actual }}"
-                            placeholder="Ingresa título, autor o ISBN..."
+                            placeholder="Enter title, author or ISBN..."
                             class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white font-sans"
                             required
                         >
@@ -40,17 +38,17 @@
                     <div>
                         <label for="max_results" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 font-sans">
                             <i class="fas fa-list-ol mr-2 text-green-500"></i>
-                            Resultados
+                            Results
                         </label>
                         <select 
                             id="max_results" 
                             name="max_results"
                             class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white font-sans"
                         >
-                            <option value="5">5 libros</option>
-                            <option value="10" selected>10 libros</option>
-                            <option value="15">15 libros</option>
-                            <option value="20">20 libros</option>
+                            <option value="5">5 books</option>
+                            <option value="10" selected>10 books</option>
+                            <option value="15">15 books</option>
+                            <option value="20">20 books</option>
                         </select>
                     </div>
                 </div>
@@ -61,23 +59,22 @@
                         class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center space-x-3 font-sans"
                     >
                         <i class="fas fa-search"></i>
-                        <span>Buscar Libros</span>
+                        <span>Search Books</span>
                     </button>
                 </div>
             </form>
         </div>
 
-        <!-- Results Section -->
         {% if query_actual %}
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white font-display">
                         <i class="fas fa-books mr-3 text-blue-500"></i>
-                        Resultados de "{{ query_actual }}"
+                        Results for "{{ query_actual }}"
                     </h2>
                     {% if resultados and resultados.items %}
                     <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium font-sans">
-                        {{ resultados.items|length }} libros encontrados
+                        {{ resultados.items|length }} books found
                     </span>
                     {% endif %}
                 </div>
@@ -93,7 +90,6 @@
                                 {% with volume_info=item.volumeInfo %}
                                 <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border-2 border-transparent hover:border-blue-300 transition-all duration-300">
                                     <div class="flex space-x-4">
-                                        <!-- Book Cover -->
                                         <div class="flex-shrink-0">
                                             {% if volume_info.imageLinks and volume_info.imageLinks.thumbnail %}
                                                 <img 
@@ -108,7 +104,6 @@
                                             {% endif %}
                                         </div>
                                         
-                                        <!-- Book Info -->
                                         <div class="flex-1 min-w-0">
                                             <h3 class="font-semibold text-gray-900 dark:text-white text-lg mb-2 line-clamp-2 font-serif">
                                                 {{ volume_info.title }}
@@ -146,7 +141,6 @@
                             {% endfor %}
                         </div>
 
-                        <!-- Import Button -->
                         <div class="text-center">
                             <button 
                                 type="submit"
@@ -155,10 +149,10 @@
                                 class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center space-x-3 mx-auto font-sans"
                             >
                                 <i class="fas fa-download"></i>
-                                <span>Importar {{ resultados.items|length }} Libros</span>
+                                <span>Import {{ resultados.items|length }} Books</span>
                             </button>
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-3 font-sans">
-                                Se importarán automáticamente todos los libros mostrados
+                                All shown books will be imported automatically
                             </p>
                         </div>
                     </form>
@@ -166,17 +160,16 @@
                     <div class="text-center py-12">
                         <i class="fas fa-search text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
                         <h3 class="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2 font-display">
-                            No se encontraron libros
+                            No books found
                         </h3>
                         <p class="text-gray-400 dark:text-gray-500 font-sans">
-                            Intenta con otros términos de búsqueda
+                            Try different search terms
                         </p>
                     </div>
                 {% endif %}
             </div>
         {% endif %}
 
-        <!-- Info Section -->
         <div class="mt-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800">
             <div class="flex items-start space-x-4">
                 <div class="flex-shrink-0">
@@ -184,20 +177,20 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2 font-sans">
-                        ¿Cómo funciona la importación?
+                        How does the import work?
                     </h3>
                     <ul class="text-blue-700 dark:text-blue-300 space-y-2 font-sans">
                         <li class="flex items-center space-x-2">
                             <i class="fas fa-check text-green-500"></i>
-                            <span>Los libros se importan automáticamente desde Google Books</span>
+                            <span>Books are imported automatically from Google Books</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i class="fas fa-check text-green-500"></i>
-                            <span>Se incluyen portadas, autores y categorías</span>
+                            <span>Covers, authors and categories are included</span>
                         </li>
                         <li class="flex items-center space-x-2">
                             <i class="fas fa-check text-green-500"></i>
-                            <span>Evita duplicados mediante verificación de ISBN</span>
+                            <span>Avoids duplicates through ISBN verification</span>
                         </li>
                     </ul>
                 </div>

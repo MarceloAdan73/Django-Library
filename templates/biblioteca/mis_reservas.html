@@ -1,39 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Mis Reservas - Biblioteca Digital{% endblock %}
+{% block title %}My Reservations - Digital Library{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
     <div class="mb-8 text-center">
         <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             <i class="fas fa-bookmark mr-3 text-blue-500"></i>
-            Mis Reservas Activas
+            My Active Reservations
         </h1>
         <p class="text-lg text-gray-600 dark:text-gray-300">
-            Gestiona y revisa tus libros reservados
+            Manage and review your reserved books
         </p>
     </div>
 
-    <!-- Botones de navegación -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <a href="{% url 'libro_list' %}" 
            class="inline-flex items-center px-5 py-2.5 bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
             <i class="fas fa-arrow-left mr-2"></i>
-            Volver al Catálogo
+            Back to Catalog
         </a>
         
         {% if reservas %}
         <div class="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg">
             <i class="fas fa-info-circle mr-1"></i>
-            {{ reservas|length }} reserva{{ reservas|pluralize }} activa{{ reservas|pluralize }}
+            {{ reservas|length }} active reservation{{ reservas|pluralize }}
         </div>
         {% endif %}
     </div>
 
     {% if reservas %}
-    <!-- Estadísticas -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
             <div class="flex items-center">
@@ -41,7 +38,7 @@
                     <i class="fas fa-book text-blue-600 dark:text-blue-400 text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-blue-800 dark:text-blue-300">Total Reservas</p>
+                    <p class="text-sm font-medium text-blue-800 dark:text-blue-300">Total Reservations</p>
                     <p class="text-2xl font-bold text-blue-900 dark:text-blue-100">{{ reservas|length }}</p>
                 </div>
             </div>
@@ -53,8 +50,8 @@
                     <i class="fas fa-check-circle text-green-600 dark:text-green-400 text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-green-800 dark:text-green-300">Estado</p>
-                    <p class="text-lg font-bold text-green-900 dark:text-green-100">Todas Activas</p>
+                    <p class="text-sm font-medium text-green-800 dark:text-green-300">Status</p>
+                    <p class="text-lg font-bold text-green-900 dark:text-green-100">All Active</p>
                 </div>
             </div>
         </div>
@@ -65,7 +62,7 @@
                     <i class="fas fa-clock text-purple-600 dark:text-purple-400 text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-purple-800 dark:text-purple-300">Más reciente</p>
+                    <p class="text-sm font-medium text-purple-800 dark:text-purple-300">Most recent</p>
                     <p class="text-lg font-bold text-purple-900 dark:text-purple-100">
                         {{ reservas.0.fecha_prestamo|timesince }}
                     </p>
@@ -74,14 +71,12 @@
         </div>
     </div>
 
-    <!-- Grid de reservas -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {% for reserva in reservas %}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden group">
-            <!-- Portada -->
             <div class="relative overflow-hidden">
-                {% if reserva.libro.portada %}
-                <img src="{{ reserva.libro.portada.url }}" alt="{{ reserva.libro.titulo }}" 
+                {% if reserva.libro.portada or reserva.libro.portada_url %}
+                <img src="{{ reserva.libro.get_portada_url }}" alt="{{ reserva.libro.titulo }}" 
                      class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
                 {% else %}
                 <div class="w-full h-56 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
@@ -89,16 +84,14 @@
                 </div>
                 {% endif %}
                 
-                <!-- Badge Estado -->
                 <div class="absolute top-4 right-4">
                     <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full shadow-sm">
                         <i class="fas fa-check-circle mr-1"></i>
-                        Activa
+                        Active
                     </span>
                 </div>
             </div>
             
-            <!-- Información -->
             <div class="p-6">
                 <h3 class="font-bold text-xl text-gray-900 dark:text-white mb-2 line-clamp-2">
                     {{ reserva.libro.titulo }}
@@ -109,11 +102,10 @@
                     {% for autor in reserva.libro.autores.all %}
                     {{ autor.nombre }}{% if not forloop.last %}, {% endif %}
                     {% empty %}
-                    <span class="text-gray-400">Autor desconocido</span>
+                    <span class="text-gray-400">Unknown author</span>
                     {% endfor %}
                 </p>
                 
-                <!-- Categorías -->
                 <div class="flex flex-wrap gap-2 mb-4">
                     {% for categoria in reserva.libro.categorias.all %}
                     <span class="px-2 py-1 text-xs rounded-full text-white font-medium shadow-sm" 
@@ -123,12 +115,11 @@
                     {% endfor %}
                 </div>
                 
-                <!-- Fechas -->
                 <div class="space-y-2 border-t border-gray-200 dark:border-gray-700 pt-4 mb-4">
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-500 dark:text-gray-400">
                             <i class="fas fa-calendar-plus mr-2"></i>
-                            Reservado:
+                            Reserved:
                         </span>
                         <span class="text-gray-900 dark:text-white font-medium">
                             {{ reserva.fecha_prestamo|date:"d M Y" }}
@@ -138,7 +129,7 @@
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-500 dark:text-gray-400">
                             <i class="fas fa-clock mr-2"></i>
-                            Hace:
+                            Ago:
                         </span>
                         <span class="text-gray-900 dark:text-white font-medium">
                             {{ reserva.fecha_prestamo|timesince }}
@@ -146,18 +137,17 @@
                     </div>
                 </div>
                 
-                <!-- Botones de acción -->
                 <div class="flex space-x-3 border-t border-gray-200 dark:border-gray-700 pt-4">
                     <a href="{% url 'libro_detail' reserva.libro.id %}" 
                        class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                         <i class="fas fa-eye mr-2"></i>
-                        Ver Detalles
+                        View Details
                     </a>
                     <a href="{% url 'cancelar_reserva' reserva.id %}" 
                        class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200"
-                       onclick="return confirm('¿Estás seguro de que quieres cancelar la reserva de {{ reserva.libro.titulo }}?')">
+                       onclick="return confirm('Are you sure you want to cancel the reservation of {{ reserva.libro.titulo }}?')">
                         <i class="fas fa-times mr-2"></i>
-                        Cancelar
+                        Cancel
                     </a>
                 </div>
             </div>
@@ -165,28 +155,27 @@
         {% endfor %}
     </div>
     {% else %}
-    <!-- Estado vacío -->
     <div class="text-center py-16 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
         <div class="max-w-md mx-auto">
             <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
                 <i class="fas fa-book-open text-4xl text-blue-500 dark:text-blue-400"></i>
             </div>
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                No tienes reservas activas
+                You have no active reservations
             </h3>
             <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">
-                ¡Explora nuestro catálogo y descubre tu próximo libro favorito!
+                Explore our catalog and discover your next favorite book!
             </p>
             <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
                 <a href="{% url 'libro_list' %}" 
                    class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
                     <i class="fas fa-search mr-2"></i>
-                    Explorar Catálogo
+                    Explore Catalog
                 </a>
                 <a href="{% url 'importar_libros' %}" 
                    class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors duration-200">
                     <i class="fas fa-download mr-2"></i>
-                    Importar Libros
+                    Import Books
                 </a>
             </div>
         </div>

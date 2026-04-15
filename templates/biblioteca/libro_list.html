@@ -1,42 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Catálogo de Libros - Biblioteca Digital{% endblock %}
+{% block title %}Book Catalog - Digital Library{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 py-8 px-4">
     <div class="max-w-7xl mx-auto">
-        <!-- Header del Catálogo -->
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-800 dark:text-white mb-4">
-                Catálogo de 
+                Book 
                 <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Libros
+                    Catalog
                 </span>
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-                Explora nuestra colección completa de libros disponibles para descubrir.
+                Explore our complete collection of available books to discover.
             </p>
         </div>
 
-        <!-- Grid de libros -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {% for libro in libros %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 overflow-hidden book-card">
-                <!-- Portada del libro -->
                 <div class="h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
                     {% if libro.portada or libro.portada_url %}
-                        <img src="{% if libro.portada %}{{ libro.portada.url }}{% else %}{{ libro.portada_url }}{% endif %}" alt="{{ libro.titulo }}" 
+                        <img src="{{ libro.get_portada_url }}" alt="{{ libro.titulo }}" 
                              class="w-full h-full object-cover hover:scale-105 transition duration-300">
                     {% else %}
                         <div class="text-gray-400 dark:text-gray-500 text-center">
                             <i class="fas fa-book text-4xl mb-2"></i>
-                            <p class="text-sm">Sin portada</p>
+                            <p class="text-sm">No cover</p>
                         </div>
                     {% endif %}
                 </div>
                 
-                <!-- Información del libro -->
                 <div class="p-4">
                     <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-white line-clamp-2">{{ libro.titulo }}</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -44,7 +40,7 @@
                         {% for autor in libro.autores.all %}
                         {{ autor.nombre }}{% if not forloop.last %}, {% endif %}
                         {% empty %}
-                        Autor desconocido
+                        Unknown author
                         {% endfor %}
                     </p>
                     <div class="flex flex-wrap gap-1 mb-3">
@@ -63,7 +59,7 @@
                         </span>
                         <a href="{% url 'libro_detail' libro.id %}" 
                            class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">
-                            Ver detalles →
+                            View details →
                         </a>
                     </div>
                 </div>
@@ -71,39 +67,38 @@
             {% empty %}
             <div class="col-span-full text-center py-12">
                 <i class="fas fa-book-open text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">No hay libros disponibles</h3>
+                <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">No books available</h3>
                 <p class="text-gray-500 dark:text-gray-500 mb-4">
                     {% if user.is_authenticated %}
-                        Prueba importando algunos libros desde la sección de importación.
+                        Try importing some books from the import section.
                     {% else %}
-                        Inicia sesión para acceder a más funciones.
+                        Login to access more features.
                     {% endif %}
                 </p>
                 {% if user.is_authenticated %}
                 <a href="{% url 'importar_libros' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium">
-                    Importar Libros
+                    Import Books
                 </a>
                 {% else %}
                 <a href="{% url 'login' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium">
-                    Iniciar Sesión
+                    Login
                 </a>
                 {% endif %}
             </div>
             {% endfor %}
         </div>
 
-        <!-- Información adicional -->
         <div class="mt-12 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-6">
             <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center">
                 <i class="fas fa-info-circle mr-2"></i>
-                Sobre nuestro catálogo
+                About our catalog
             </h3>
             <p class="text-blue-700 dark:text-blue-400 text-sm">
-                Nuestro catálogo se actualiza regularmente con nuevos títulos. 
+                Our catalog is regularly updated with new titles. 
                 {% if user.is_authenticated %}
-                    Puedes importar libros automáticamente desde Google Books usando la función de importación.
+                    You can import books automatically from Google Books using the import function.
                 {% else %}
-                    <a href="{% url 'register' %}" class="font-medium underline">Regístrate</a> para acceder a todas las funciones.
+                    <a href="{% url 'register' %}" class="font-medium underline">Register</a> to access all features.
                 {% endif %}
             </p>
         </div>

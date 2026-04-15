@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Biblioteca Digital · Gestiona tu conocimiento{% endblock %}</title>
+    <title>{% block title %}Digital Library · Manage Your Knowledge{% endblock %}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -51,125 +51,115 @@
     <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo - IZQUIERDA -->
                 <div class="flex items-center space-x-3">
                     <div class="bg-gradient-to-br from-primary-500 to-primary-600 p-2 rounded-lg">
                         <i class="fas fa-book text-white text-lg"></i>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold text-gray-900 dark:text-gray-300">
-                            BibliotecaDigital
+                            DigitalLibrary
                         </h1>
                         <p class="hidden sm:block text-xs text-gray-500 dark:text-gray-400 font-medium">
                             {% if user.is_authenticated %}
-                                Bienvenido, {{ user.username }}
+                                Welcome, {{ user.username }}
                             {% else %}
-                                Gestiona tu conocimiento
+                                Manage Your Knowledge
                             {% endif %}
                         </p>
                     </div>
                 </div>
 
-                <!-- Menú Móvil -->
-                <!-- Navegación - DERECHA -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <!-- BOTÓN TEMA - PRIMER ELEMENTO A LA DERECHA -->
                     <button @click="darkMode = !darkMode" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 p-2 rounded-lg transition-colors border border-gray-200 dark:border-gray-600">
                         <i class="fas fa-moon" x-show="!darkMode"></i>
                         <i class="fas fa-sun" x-show="darkMode"></i>
                     </button>
                     
-                    <!-- Navegación -->
-                    <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Inicio</a>
-                    <a href="/libros/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Catálogo</a>
+                    <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Home</a>
+                    <a href="/libros/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Catalog</a>
                     
-                    <!-- IMPORTAR LIBROS - SOLO PARA USUARIOS LOGUEADOS -->
                     {% if user.is_authenticated %}
                         <a href="/importar-libros/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors flex items-center space-x-1">
                             <i class="fas fa-download text-sm"></i>
-                            <span>Importar Libros</span>
+                            <span>Import Books</span>
                         </a>
                         <a href="/mis-reservas/" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors flex items-center space-x-1">
                             <i class="fas fa-bookmark text-sm"></i>
-                            <span>Mis Reservas</span>
+                            <span>My Reservations</span>
                         </a>
                     {% endif %}
                     
-                    <!-- VERIFICACION DE USUARIO AUTENTICADO -->
                     {% if user.is_authenticated %}
                     <div class="flex items-center space-x-4">
-                        <!-- Badge de usuario con corona -->
                         <div class="user-badge px-3 py-1 rounded-full text-white text-sm font-medium flex items-center space-x-2">
                             <i class="fas fa-crown text-yellow-300"></i>
                             <span>{{ user.username }}</span>
                         </div>
                         <a href="/accounts/logout/" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center space-x-2">
                             <i class="fas fa-sign-out-alt"></i>
-                            <span>Salir</span>
+                            <span>Logout</span>
                         </a>
                     </div>
                     {% else %}
                     <div class="flex items-center space-x-3">
                         <a href="/accounts/login/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
-                            Iniciar Sesión
+                            Login
                         </a>
                         <a href="/accounts/register/" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center space-x-2">
                             <i class="fas fa-user-plus"></i>
-                            <span>Registrarse</span>
+                            <span>Register</span>
                         </a>
                     </div>
                     {% endif %}
                 </div>
                 <div class="md:hidden">
-                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-700 hover:text-primary-600 p-2 rounded-lg" aria-label="Abrir menú de navegación">
+                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-700 hover:text-primary-600 p-2 rounded-lg" aria-label="Open navigation menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Menú Móvil Desplegable -->
             <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" @click.away="mobileMenuOpen = false" class="md:hidden mobile-menu border-t border-gray-200 dark:border-gray-700 py-4 bg-white dark:bg-gray-800">
                 <div class="space-y-4">
                     <a href="/" class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-l-4 border-primary-500 pl-4">
-                        <i class="fas fa-home mr-3"></i>Inicio
+                        <i class="fas fa-home mr-3"></i>Home
                     </a>
                     <a href="/libros/" class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-l-4 border-primary-500 pl-4">
-                        <i class="fas fa-book mr-3"></i>Catálogo
+                        <i class="fas fa-book mr-3"></i>Catalog
                     </a>
                     
                     {% if user.is_authenticated %}
                     <a href="/importar-libros/" class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-l-4 border-primary-500 pl-4">
-                        <i class="fas fa-download mr-3"></i>Importar Libros
+                        <i class="fas fa-download mr-3"></i>Import Books
                     </a>
                     <a href="/mis-reservas/" class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-l-4 border-primary-500 pl-4">
-                        <i class="fas fa-bookmark mr-3"></i>Mis Reservas
+                        <i class="fas fa-bookmark mr-3"></i>My Reservations
                     </a>
                     {% endif %}
 
-                    <!-- Control de Tema en Móvil -->
                     <button @click="darkMode = !darkMode" class="block w-full text-left text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium py-2 border-l-4 border-primary-500 pl-4">
                         <i class="fas fa-moon mr-3" x-show="!darkMode"></i>
                         <i class="fas fa-sun mr-3" x-show="darkMode"></i>
-                        Tema
+                        Theme
                     </button>
                     
                     {% if user.is_authenticated %}
                     <div class="pt-4 border-t border-gray-200 dark:border-gray-600 space-y-2">
                         <div class="user-badge px-4 py-2 rounded-lg text-white font-medium flex items-center">
                             <i class="fas fa-user mr-3"></i>
-                            <span>Hola, {{ user.username }}</span>
+                            <span>Hi, {{ user.username }}</span>
                         </div>
                         <a href="/accounts/logout/" class="block w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-medium">
-                            <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesión
+                            <i class="fas fa-sign-out-alt mr-3"></i>Logout
                         </a>
                     </div>
                     {% else %}
                     <div class="pt-4 border-t border-gray-200 dark:border-gray-600 space-y-2">
                         <a href="/accounts/login/" class="block w-full bg-primary-500 hover:bg-primary-600 text-white px-4 py-3 rounded-lg font-medium">
-                            <i class="fas fa-user mr-3"></i>Iniciar Sesión
+                            <i class="fas fa-user mr-3"></i>Login
                         </a>
                         <a href="/accounts/register/" class="block w-full border border-primary-500 text-primary-600 hover:bg-primary-50 px-4 py-3 rounded-lg font-medium">
-                            <i class="fas fa-user-plus mr-3"></i>Crear Cuenta
+                            <i class="fas fa-user-plus mr-3"></i>Create Account
                         </a>
                     </div>
                     {% endif %}
@@ -183,72 +173,68 @@
         {% endblock %}
     </main>
 
-    <!-- FOOTER MEJORADO -->
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Logo y Descripción -->
                 <div class="md:col-span-2">
                     <div class="flex items-center space-x-4 mb-6">
                         <div class="bg-gradient-to-br from-primary-500 to-primary-600 p-3 rounded-xl">
                             <i class="fas fa-book text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">BibliotecaDigital</h3>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">DigitalLibrary</h3>
                             <p class="text-sm text-gray-600 dark:text-gray-400 font-medium">
                                 {% if user.is_authenticated %}
-                                    Hola, {{ user.username }} · Tu biblioteca personal
+                                    Hi, {{ user.username }} · Your Personal Library
                                 {% else %}
-                                    Tu portal al conocimiento infinito
+                                    Your Gateway to Infinite Knowledge
                                 {% endif %}
                             </p>
                         </div>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 text-base leading-relaxed max-w-lg">
                         {% if user.is_authenticated %}
-                            <strong class="text-primary-600 dark:text-primary-400">Sesión activa</strong> · 
-                            Explora, descubre y gestiona tu colección literaria personal con todas las funciones premium desbloqueadas.
+                            <strong class="text-primary-600 dark:text-primary-400">Active Session</strong> · 
+                            Explore, discover and manage your personal literary collection with all premium features unlocked.
                         {% else %}
-                            Plataforma moderna para gestión de bibliotecas. 
-                            <a href="/accounts/register/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Regístrate gratis</a> 
-                            para desbloquear todas las funciones.
+                            Modern platform for library management. 
+                            <a href="/accounts/register/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Register free</a> 
+                            to unlock all features.
                         {% endif %}
                     </p>
                 </div>
 
-                <!-- Navegación -->
                 <div>
                     <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                         <i class="fas fa-compass mr-2 text-primary-600"></i>
-                        Navegación
+                        Navigation
                     </h4>
                     <ul class="space-y-3">
                         <li><a href="/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-home mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Inicio
+                            Home
                         </a></li>
                         <li><a href="/libros/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-book mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Catálogo
+                            Catalog
                         </a></li>
                         {% if user.is_authenticated %}
                         <li><a href="/importar-libros/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-download mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Importar Libros
+                            Import Books
                         </a></li>
                         <li><a href="/mis-reservas/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-bookmark mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Mis Reservas
+                            My Reservations
                         </a></li>
                         {% endif %}
                     </ul>
                 </div>
 
-                <!-- Cuenta -->
                 <div>
                     <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                         <i class="fas fa-user-circle mr-2 text-primary-600"></i>
-                        Tu Cuenta
+                        Your Account
                     </h4>
                     <ul class="space-y-3">
                         {% if user.is_authenticated %}
@@ -258,37 +244,36 @@
                         </li>
                         <li><a href="/accounts/logout/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-sign-out-alt mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Cerrar Sesión
+                            Logout
                         </a></li>
                         {% else %}
                         <li><a href="/accounts/login/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-sign-in-alt mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Iniciar Sesión
+                            Login
                         </a></li>
                         <li><a href="/accounts/register/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center group">
                             <i class="fas fa-user-plus mr-3 text-gray-400 group-hover:text-primary-600 transition-colors w-4"></i>
-                            Registrarse
+                            Register
                         </a></li>
                         {% endif %}
                     </ul>
                 </div>
             </div>
 
-            <!-- Línea separadora y copyright -->
             <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        &copy; 2024 BibliotecaDigital. 
+                        &copy; 2024 DigitalLibrary. 
                         {% if user.is_authenticated %}
-                            <span class="text-green-600 dark:text-green-400 font-medium">Sesión activa · Acceso completo</span>
+                            <span class="text-green-600 dark:text-green-400 font-medium">Active Session · Full Access</span>
                         {% else %}
-                            Desarrollado con Django + Tailwind CSS + Alpine.js
+                            Built with Django + Tailwind CSS + Alpine.js
                         {% endif %}
                     </p>
                     <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                         <span class="flex items-center">
                             <i class="fas fa-books mr-2"></i>
-                            Libros en catálogo
+                            Books in catalog
                         </span>
                     </div>
                 </div>
@@ -296,7 +281,6 @@
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
     <div x-data="{ showScrollTop: false }" 
          x-init="window.addEventListener('scroll', () => { showScrollTop = window.scrollY > 300 })"
          class="fixed bottom-6 right-6 z-50 transition-all duration-500"
@@ -313,10 +297,9 @@
             <i class="fas fa-chevron-up text-sm group-hover:-translate-y-0.5 transition-transform duration-300"></i>
         </button>
         
-        <!-- Tooltip -->
         <div class="absolute bottom-full right-0 mb-2 hidden group-hover:block">
             <div class="bg-gray-900 dark:bg-gray-700 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-                Volver arriba
+                Back to top
                 <div class="absolute top-full right-3 -mt-1 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Inicio - Biblioteca Digital{% endblock %}
+{% block title %}Home - Digital Library{% endblock %}
 
 {% block content %}
 <div class="bg-gradient-to-br from-gray-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800" 
@@ -11,7 +11,6 @@
             disponibles: 0
         },
         init() {
-            // Animación de contadores
             this.animateCounter('libros', {{ total_libros }});
             this.animateCounter('disponibles', {{ total_disponibles }});
         },
@@ -29,58 +28,56 @@
      }">
     
     <div class="max-w-7xl mx-auto py-8 px-4">
-        <!-- Hero Section -->
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-display font-bold text-gray-800 dark:text-white mb-4">
-                Bienvenido a 
+                Welcome to 
                 <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    BibliotecaDigital
+                    DigitalLibrary
                 </span>
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-                Descubre, explora y gestiona tu colección literaria en una plataforma moderna y elegante.
+                Discover, explore and manage your literary collection on a modern and elegant platform.
             </p>
             
             {% if not user.is_authenticated %}
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{% url 'register' %}" 
                    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Comenzar Ahora
+                    Get Started
                 </a>
                 <a href="{% url 'libro_list' %}" 
                    class="border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
-                    Explorar Catálogo
+                    Explore Catalog
                 </a>
             </div>
             {% else %}
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{% url 'libro_list' %}" 
                    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Ver Catálogo Completo
+                    View Full Catalog
                 </a>
                 <a href="{% url 'importar_libros' %}" 
                    class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Importar Nuevos Libros
+                    Import New Books
                 </a>
             </div>
             {% endif %}
         </div>
 
-        <!-- Estadísticas -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-book text-blue-600 dark:text-blue-400 text-xl"></i>
                 </div>
                 <h3 class="text-2xl font-serif font-semibold text-gray-800 dark:text-white mb-2" x-text="stats.libros"></h3>
-                <p class="text-gray-600 dark:text-gray-400">Libros en Catálogo</p>
+                <p class="text-gray-600 dark:text-gray-400">Books in Catalog</p>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-check-circle text-green-600 dark:text-green-400 text-xl"></i>
                 </div>
                 <h3 class="text-2xl font-serif font-semibold text-gray-800 dark:text-white mb-2" x-text="stats.disponibles"></h3>
-                <p class="text-gray-600 dark:text-gray-400">Libros Disponibles</p>
+                <p class="text-gray-600 dark:text-gray-400">Available Books</p>
             </div>
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -89,24 +86,23 @@
                 <h3 class="text-2xl font-serif font-semibold text-gray-800 dark:text-white mb-2">
                     {% if user.is_authenticated %}1{% else %}0{% endif %}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">Usuarios Activos</p>
+                <p class="text-gray-600 dark:text-gray-400">Active Users</p>
             </div>
         </div>
 
-        <!-- Libros Destacados -->
         <div class="mb-12">
-            <h2 class="text-3xl font-display font-bold text-gray-800 dark:text-white mb-8 text-center">📚 Libros Destacados</h2>
+            <h2 class="text-3xl font-display font-bold text-gray-800 dark:text-white mb-8 text-center">Featured Books</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for libro in libros_destacados %}
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/30 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 book-card group">
                     <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden relative">
                         {% if libro.portada or libro.portada_url %}
-                            <img src="{% if libro.portada %}{{ libro.portada.url }}{% else %}{{ libro.portada_url }}{% endif %}" alt="{{ libro.titulo }}" 
+                            <img src="{{ libro.get_portada_url }}" alt="{{ libro.titulo }}" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         {% else %}
                             <div class="text-gray-400 dark:text-gray-500 text-center p-4">
                                 <i class="fas fa-book text-4xl mb-2"></i>
-                                <p class="text-sm">Sin portada</p>
+                                <p class="text-sm">No cover</p>
                             </div>
                         {% endif %}
                         <div class="absolute top-4 right-4">
@@ -124,12 +120,12 @@
                             {% for autor in libro.autores.all %}
                                 {{ autor.nombre }}{% if not forloop.last %}, {% endif %}
                             {% empty %}
-                                Autor desconocido
+                                Unknown author
                             {% endfor %}
                         </p>
                         <a href="{% url 'libro_detail' libro.id %}" 
                            class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium group-hover:translate-x-1 transition-all duration-200">
-                            Ver detalles
+                            View details
                             <i class="fas fa-arrow-right ml-1 text-xs"></i>
                         </a>
                     </div>
@@ -137,42 +133,40 @@
                 {% empty %}
                 <div class="col-span-full text-center py-12">
                     <i class="fas fa-book-open text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">No hay libros destacados</h3>
-                    <p class="text-gray-500 dark:text-gray-500">Importa algunos libros para comenzar</p>
+                    <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">No featured books</h3>
+                    <p class="text-gray-500 dark:text-gray-500">Import some books to get started</p>
                 </div>
                 {% endfor %}
             </div>
         </div>
 
-        <!-- Características -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/30 p-8 mb-8">
-            <h2 class="text-3xl font-display font-bold text-gray-800 dark:text-white mb-8 text-center">✨ Características Principales</h2>
+            <h2 class="text-3xl font-display font-bold text-gray-800 dark:text-white mb-8 text-center">Key Features</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="text-center p-6 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300">
                     <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <i class="fas fa-download text-blue-600 dark:text-blue-400 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Importación Automática</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Importa libros automáticamente desde Google Books API con portadas e información completa.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Automatic Import</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Import books automatically from Google Books API with covers and complete information.</p>
                 </div>
                 <div class="text-center p-6 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300">
                     <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <i class="fas fa-mobile-alt text-green-600 dark:text-green-400 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Diseño Responsive</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Funciona perfectamente en todos los dispositivos: desktop, tablet y móvil.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Responsive Design</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Works perfectly on all devices: desktop, tablet and mobile.</p>
                 </div>
                 <div class="text-center p-6 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300">
                     <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <i class="fas fa-user-shield text-purple-600 dark:text-purple-400 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Sistema Seguro</h3>
-                    <p class="text-gray-600 dark:text-gray-400">Autenticación segura y funciones exclusivas para usuarios registrados.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Secure System</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Secure authentication and exclusive features for registered users.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Llamada a la acción MEJORADA -->
         {% if not user.is_authenticated %}
         <div class="mb-8" 
              x-data="{
@@ -198,7 +192,6 @@
             
             <div class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-700 dark:via-purple-700 dark:to-indigo-700 rounded-2xl p-8 text-white shadow-2xl">
                 
-                <!-- Partículas flotantes -->
                 <template x-for="particle in particles" :key="particle.id">
                     <div class="absolute rounded-full bg-white/20"
                          :class="{'transition-all duration-1000': hover}"
@@ -213,31 +206,28 @@
                     </div>
                 </template>
 
-                <!-- Contenido -->
                 <div class="relative z-10 text-center">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4" 
-                        x-text="hover ? '¡Comienza Tu Aventura!' : '¿Listo para comenzar?'">
+                        x-text="hover ? 'Start Your Adventure!' : 'Ready to get started?'">
                     </h2>
                     <p class="text-xl mb-6 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                        Únete a nuestra comunidad de lectores y descubre una nueva forma de gestionar tu biblioteca personal.
+                        Join our community of readers and discover a new way to manage your personal library.
                     </p>
                     <a href="{% url 'register' %}" 
                        class="inline-flex items-center bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
                        :class="{'animate-pulse': hover}">
                         <i class="fas fa-rocket mr-2 group-hover:rotate-45 transition-transform duration-300"></i>
-                        Crear Cuenta Gratis
+                        Create Free Account
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                     </a>
                     
-                    <!-- Info adicional que aparece al hover -->
                     <div class="mt-4 text-blue-100 text-sm transition-all duration-300"
                          :class="{'opacity-100 translate-y-0': hover, 'opacity-0 -translate-y-2': !hover}">
                         <i class="fas fa-star mr-1"></i>
-                        Sin compromisos · Demo completamente funcional
+                        No commitment · Fully functional demo
                     </div>
                 </div>
 
-                <!-- Elementos decorativos -->
                 <div class="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
                 <div class="absolute bottom-0 right-0 w-24 h-24 bg-white/10 rounded-full translate-x-1/3 translate-y-1/3"></div>
             </div>

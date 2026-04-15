@@ -9,9 +9,8 @@
 ## 🚀 Visit the deployed application  
 👉 [https://biblioteca-django-5dbk.onrender.com](https://biblioteca-django-5dbk.onrender.com)
 
-**Admin Demo Access:**
-- **Username:** `admin`
-- **Password:** `admin123**
+> ⚠️ **Admin Access:**
+Create superuser with `python manage.py createsuperuser`
 
 - ![Vista de la Biblioteca Digital](biblioteca-django.png)
 
