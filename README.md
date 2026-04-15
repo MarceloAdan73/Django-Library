@@ -11,6 +11,13 @@
 
 > ⚠️ **Admin Access:**
 > Run `python startup.py` - credentials auto-generated and saved to `.admin_credentials`
+> Or click "Demo Login" button for instant access
+
+## ✨ What's New
+- **Demo Mode** - One-click login without credentials
+- **8 Sample Books** - Always available, even with empty database
+- **English Interface** - Full English translation
+- **Secure Credentials** - Auto-generated passwords, never hardcoded
 
 - ![Vista de la Biblioteca Digital](biblioteca-django.png)
 
@@ -29,6 +36,7 @@ A modern, full-featured digital library management system built with Django and 
 - **Advanced Search** - Multi-criteria search across titles, authors, and categories
 
 ### 🔐 User Management System
+- **Demo Login** - One-click access without credentials
 - **Secure Authentication** - Robust login/logout system with session management
 - **Book Reservation System** - Complete loan management with due dates
 - **Review & Rating System** - User-generated content with moderation
@@ -300,7 +308,7 @@ pip install -r requirements.txt
 
 3. Database Setup
 python manage.py migrate
-python manage.py createsuperuser
+python startup.py  # Creates admin + loads 8 sample books
 
 4. Development Server
 python manage.py runserver
