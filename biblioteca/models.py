@@ -45,7 +45,7 @@ class Libro(models.Model):
     stock = models.IntegerField(default=1)
     portada = models.ImageField(upload_to="portadas/", blank=True, null=True)
     portada_url = models.URLField(
-        blank=True, max_length=500
+        blank=True, max_length=500, default=""
     )  # NUEVO: Guardar URL original
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
@@ -53,7 +53,7 @@ class Libro(models.Model):
         return self.titulo
 
     def get_absolute_url(self):
-        return reverse("detalle_libro", kwargs={"pk": self.pk})
+        return reverse("detalle_libro", kwargs={"id": self.pk})
 
     def get_portada_url(self):
         """Returns cover URL: local first, then external URL, then placeholder"""

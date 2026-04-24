@@ -136,18 +136,18 @@ class GoogleBooksAPI:
                     if response.status_code == 200:
                         filename = f"portada_{uuid.uuid4().hex[:8]}.jpg"
                         libro.portada.save(filename, ContentFile(response.content), save=True)
-                        print(f"✅ Portada guardada localmente: {filename}")
+                        print(f"[OK] Portada guardada localmente: {filename}")
                     else:
-                        print(f"❌ No se pudo descargar portada: {response.status_code}")
+                        print(f"[FAIL] No se pudo descargar portada: {response.status_code}")
                 except Exception as e:
-                    print(f"❌ Error descargando portada: {e}")
+                    print(f"[FAIL] Error descargando portada: {e}")
             
             libro.save()
-            print(f"✅ Libro importado exitosamente: {libro.titulo}")
+            print(f"[OK] Libro importado exitosamente: {libro.titulo}")
             return libro
             
         except Exception as e:
-            print(f"❌ Error importando libro: {e}")
+            print(f"[ERROR] Error importando libro: {e}")
             return None
     
     def _generar_color_aleatorio(self):
