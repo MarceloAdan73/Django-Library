@@ -62,3 +62,4 @@ logs/
 *.backup
 *.bak
 backup/
+package-lock.json
