@@ -1,0 +1,25 @@
+{
+  "name": "django-library",
+  "version": "1.0.0",
+  "description": "![Django](https://img.shields.io/badge/Django-5.2.8-green?style=for-the-badge&logo=django)\r ![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)\r ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css)\r ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql)\r ![Render](https://img.shields.io/badge/Render-Cloud-46B3E3?style=for-the-badge&logo=render)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarceloAdan73/Django-Library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarceloAdan73/Django-Library/issues"
+  },
+  "homepage": "https://github.com/MarceloAdan73/Django-Library#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^3.4.19"
+  }
+}
