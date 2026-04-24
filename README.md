@@ -1,6 +1,10 @@
 # 📚 Digital Library Management System
 
-[![CI](https://github.com/MarceloAdan73/biblioteca-django/actions/workflows/ci.yml/badge.svg)](https://github.com/MarceloAdan73/biblioteca-django/actions/workflows/ci.yml)
+<p align="center">
+  <a href="https://github.com/MarceloAdan73/biblioteca-django/actions/workflows/ci.yml">
+    <img src="https://github.com/MarceloAdan73/biblioteca-django/actions/workflows/ci.yml/badge.svg" alt="CI">
+  </a>
+</p>
 
 ![Django](https://img.shields.io/badge/Django-5.2.8-green?style=for-the-badge&logo=django)
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
